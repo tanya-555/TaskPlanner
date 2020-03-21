@@ -11,20 +11,26 @@ import com.example.to_doapp.viewholder.TaskViewHolder;
 
 import java.util.List;
 
+import io.reactivex.subjects.PublishSubject;
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private List<TaskModel> taskList;
     private Context context;
+    private PublishSubject<TaskModel> taskClickPublishSubject;
 
     public TaskAdapter(List<TaskModel> taskList, Context context) {
         this.taskList = taskList;
         this.context = context;
+        taskClickPublishSubject = PublishSubject.create();
     }
 
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         CustomViewBinding binding = CustomViewBinding.inflate(LayoutInflater.from(parent.getContext()));
-        return new TaskViewHolder(binding);
+        TaskViewHolder taskViewHolder = new TaskViewHolder(binding);
+        registerPublishSubject(taskViewHolder);
+        return taskViewHolder;
     }
 
     @Override
@@ -36,5 +42,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    private void registerPublishSubject(TaskViewHolder viewHolder) {
+        viewHolder.getTaskModelPublishSubject().subscribe(taskClickPublishSubject);
+    }
+
+    public PublishSubject<TaskModel> getTaskClickPublishSubject() {
+        return  taskClickPublishSubject;
     }
 }

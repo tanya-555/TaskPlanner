@@ -26,6 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CREATE TASK"
+            android:layout_marginLeft="40dp"
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@color/colorAccent" />
@@ -69,6 +70,7 @@
                 android:id="@+id/low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="Low Priority" />
 
 
