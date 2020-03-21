@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="MODEL"
+            type="com.example.to_doapp.model.TaskModel" />
+    </data>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#c7a2ce"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/task_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"
+        app:layout_constrainedWidth="true"
+        android:textColor="#75659e"
+        android:textSize="10dp"
+        android:text="@{MODEL.taskName}"
+        />
+
+    <ImageView
+        android:id="@+id/priority"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/task_name"
+        app:layout_constraintBottom_toBottomOf="@+id/task_name"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/star"
+        android:visibility="@{MODEL.priority == true ? View.VISIBLE : View.GONE}"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
