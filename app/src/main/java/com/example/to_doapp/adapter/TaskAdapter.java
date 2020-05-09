@@ -17,6 +17,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private List<TaskModel> taskList;
     private Context context;
     private PublishSubject<TaskModel> taskClickPublishSubject;
+    private CustomViewBinding binding;
 
     public TaskAdapter(List<TaskModel> taskList, Context context) {
         this.taskList = taskList;
@@ -27,7 +28,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @NonNull
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CustomViewBinding binding = CustomViewBinding.inflate(LayoutInflater.from(parent.getContext()));
+        binding = CustomViewBinding.inflate(LayoutInflater.from(parent.getContext()));
         TaskViewHolder taskViewHolder = new TaskViewHolder(binding);
         registerPublishSubject(taskViewHolder);
         return taskViewHolder;

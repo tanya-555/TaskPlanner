@@ -1,6 +1,5 @@
 package com.example.to_doapp.controller;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,16 +9,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bluelinelabs.conductor.Conductor;
-import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
-import com.example.to_doapp.AddTaskActivity;
 import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AppPresenter;
-import com.example.to_doapp.viewholder.TaskViewHolder;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
 import com.example.to_doapp.R;
 import com.jakewharton.rxbinding3.view.RxView;
@@ -46,8 +41,17 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         compositeDisposable = new CompositeDisposable();
         taskModelList = new ArrayList<>();
         initListener();
-        getPresenter().loadData();
         return binding.getRoot();
+    }
+
+    @Override
+    protected void onAttach(@NonNull View view) {
+        super.onAttach(view);
+        fetchData();
+    }
+
+    private void fetchData() {
+        getPresenter().loadData(getActivity());
     }
 
     private void initListener() {
@@ -57,8 +61,8 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         .subscribe(new Consumer<Unit>() {
                        @Override
                        public void accept(Unit s)  {
-                           Intent intent = new Intent(getActivity(), AddTaskActivity.class);
-                           startActivity(intent);
+                           AddTaskController controller = new AddTaskController();
+                           getRouter().pushController(RouterTransaction.with(controller));
                        }
                    }
                 ));
@@ -66,13 +70,13 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
 
     public void populateList() {
         adapter = new TaskAdapter(taskModelList,getActivity());
-        adapter.notifyDataSetChanged();
-        binding.rvItemlist.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        binding.rvItemlist.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.rvItemlist.setAdapter(adapter);
     }
 
     @Override
-    public void showData(TaskModel taskList) {
+    public void showData(List<TaskModel> taskList) {
+        taskModelList = taskList;
         populateList();
     }
 
@@ -80,11 +84,11 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @Override
     public AppPresenter createPresenter() {
 
-        return new AppPresenter(getApplicationContext());
+        return new AppPresenter();
     }
 
     public AppPresenter getPresenter() {
 
-        return createPresenter();
+        return super.getPresenter();
     }
 }

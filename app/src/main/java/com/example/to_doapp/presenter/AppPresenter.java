@@ -1,45 +1,36 @@
 package com.example.to_doapp.presenter;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
+import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
+import org.jetbrains.annotations.NotNull;
 
-public class AppPresenter extends AppContract.Presenter {
+import java.util.ArrayList;
+import java.util.List;
+
+public class AppPresenter extends AppContract.Presenter implements MvpPresenter<AppContract.View> {
 
     public AppContract.View view;
-    public TaskDatabase database;
+    private Context context;
+    private List<TaskModel> taskModelList;
 
-    public AppPresenter(Context context) {
-        database = TaskDatabase.getInstance(context);
+
+    @Override
+    public void loadData(Context context) {
+        this.context = context;
+        taskModelList = new ArrayList<>();
+        FetchTasks fetchTasks = new FetchTasks();
+        fetchTasks.execute();
     }
 
     @Override
-    public void loadData() {
-        database.taskOperationsDao().getTask().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<TaskModel>() {
-                    @Override
-                    public void accept(TaskModel taskList) throws Exception {
-                        view.showData(taskList);
-                    }
-                });
-//        int numberOfRows = database.taskOperationsDao().getNumberOfRows();
-//        if(numberOfRows > 0) {
-//
-//        } else {
-//            view.showNoContent();
-//        }
-    }
-
-    @Override
-    public void attachView(AppContract.View view) {
-
+    public void attachView(@NotNull AppContract.View view) {
+        this.view = view;
     }
 
     @Override
@@ -55,5 +46,22 @@ public class AppPresenter extends AppContract.Presenter {
     @Override
     public void destroy() {
 
+    }
+
+    class FetchTasks extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            taskModelList = TaskDatabase.getInstance(context).taskOperationsDao().getTask();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(view != null) {
+                view.showData(taskModelList);
+            }
+        }
     }
 }

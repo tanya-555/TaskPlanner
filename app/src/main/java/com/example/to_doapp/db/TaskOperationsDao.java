@@ -6,6 +6,8 @@ import androidx.room.Query;
 
 import com.example.to_doapp.model.TaskModel;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
@@ -30,7 +32,7 @@ public interface TaskOperationsDao {
 
     //Select from database
     @Query("SELECT * FROM task")
-    Flowable<TaskModel> getTask();
+    List<TaskModel> getTask();
 }
 
 

@@ -7,13 +7,6 @@
     android:background="#7a1532"
     tools:context=".MainActivity">
 
-    <com.bluelinelabs.conductor.ChangeHandlerFrameLayout
-        android:id="@+id/router"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="300dp"
@@ -40,6 +33,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.281" />
+
+    <TextView
+        android:id="@+id/click_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click to continue"
+        android:textColor="#227fce"
+        android:textSize="17dp"
+        android:textStyle="italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ProgressBar
         android:layout_width="wrap_content"

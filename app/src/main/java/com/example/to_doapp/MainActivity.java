@@ -2,6 +2,7 @@ package com.example.to_doapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -20,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView textView;
     private ImageView imageView;
+    private TextView clickTextView;
     private CountDownTimer countDownTimer;
-    private Router router;
     private int time =0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,38 +31,24 @@ public class MainActivity extends AppCompatActivity {
         imageView=findViewById(R.id.imageView);
         progressBar = findViewById(R.id.progressBar);
         textView=findViewById(R.id.header);
-        progressBar.setProgress(time);
+        clickTextView = findViewById(R.id.click_tv);
+        progressBar.setVisibility(View.VISIBLE);
+        initListener();
 
-        router = Conductor.attachRouter(MainActivity.this, (ViewGroup) findViewById(R.id.router), savedInstanceState);
-         countDownTimer = new CountDownTimer(5000, 1000) {
 
 
-            public void onTick(long millisUntilFinished) {
+    }
 
-                time++;
-                progressBar.setProgress(time*100/(5000/1000));
-            }
-
-            public void onFinish() {
-                time++;
-                progressBar.setProgress(100);
+    private void initListener() {
+        clickTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 progressBar.setVisibility(View.GONE);
-                imageView.setVisibility(View.GONE);
-                textView.setVisibility(View.GONE);
-
-                if(!router.hasRootController()) {
-                    router.setRoot(RouterTransaction.with(new MainController()));
-                }
-
+                Intent intent = new Intent(MainActivity.this, ManageTaskActivity.class);
+                startActivity(intent);
+                finish();
             }
-        }.start();
-
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        if(!router.handleBack()) {
-            super.onBackPressed();
-        }
-    }
 }
