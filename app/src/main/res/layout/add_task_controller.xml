@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/constraintLayout"
-    android:background="@color/colorAccent"
+    android:background="@drawable/background2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,7 +14,7 @@
         android:id="@+id/toolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="#227fce"
+        android:background="#000000"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,9 +30,22 @@
             android:layout_marginLeft="40dp"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent" />
+            android:textColor="#ffffff" />
 
     </androidx.appcompat.widget.Toolbar>
+
+
+    <TextView
+        android:id="@+id/date_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="30-04-2020"
+        android:textSize="15dp"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginTop="10dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -81,7 +95,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="ADD"
-            android:background="@color/design_default_color_primary_dark"
+            android:background="#000000"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group"

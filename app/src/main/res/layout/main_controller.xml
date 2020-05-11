@@ -6,13 +6,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="@drawable/background2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:background="#227fce"
+        android:background="#000000"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +28,7 @@
             android:layout_marginLeft="40dp"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:textColor="@color/colorAccent" />
+            android:textColor="#ffffff" />
 
 
 

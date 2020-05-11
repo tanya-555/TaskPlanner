@@ -18,6 +18,10 @@
         </activity>
 
         <activity android:name=".ManageTaskActivity"></activity>
+
+        <activity android:name=".CalendarActivity"></activity>
+
+        <activity android:name=".AddTaskActivity"></activity>
     </application>
 
 </manifest>

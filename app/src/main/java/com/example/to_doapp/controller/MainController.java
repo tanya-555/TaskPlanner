@@ -1,5 +1,6 @@
 package com.example.to_doapp.controller;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.example.to_doapp.CalendarActivity;
 import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
@@ -61,8 +63,10 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         .subscribe(new Consumer<Unit>() {
                        @Override
                        public void accept(Unit s)  {
-                           AddTaskController controller = new AddTaskController();
-                           getRouter().pushController(RouterTransaction.with(controller));
+//                           AddTaskController controller = new AddTaskController();
+//                           getRouter().pushController(RouterTransaction.with(controller));
+                           Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                           startActivity(intent);
                        }
                    }
                 ));

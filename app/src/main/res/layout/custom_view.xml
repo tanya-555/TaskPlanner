@@ -41,6 +41,23 @@
         app:srcCompat="@drawable/star"
         android:visibility="@{MODEL.priority == true ? View.VISIBLE : View.GONE}"/>
 
+    <TextView
+        android:id="@+id/task_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        tools:text="30-04-2020"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/task_name"
+        android:layout_marginStart="8dp"
+        android:paddingBottom="8dp"
+        android:text="@{MODEL.date}"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        android:layout_alignBottom="@+id/task_date"/>
 
 
 </RelativeLayout>

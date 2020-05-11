@@ -1,6 +1,7 @@
 package com.example.to_doapp.controller;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,12 +37,21 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
     AddTaskControllerBinding binding;
     CompositeDisposable disposable;
     private String taskName;
+    private Bundle bundle;
+    private String date;
+
+    public AddTaskController(Bundle bundle) {
+        super(bundle);
+        this.bundle = bundle;
+    }
 
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         binding = DataBindingUtil.inflate(inflater, R.layout.add_task_controller,container,  false);
         disposable = new CompositeDisposable();
+        date = bundle.getString("DATE");
+        binding.dateTv.setText(date);
         return binding.getRoot();
     }
 
@@ -70,7 +80,13 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
         taskName = binding.taskName.getText().toString();
         TaskModel task = new TaskModel();
         task.setTaskName(taskName);
-        task.setPriority(true);
+        //logic for priority radio button
+        if(binding.high.isChecked()) {
+            task.setPriority(true);
+        } else {
+            task.setPriority(false);
+        }
+        task.setDate(date);
         getPresenter().loadData(getApplicationContext(), task);
     }
 
@@ -89,5 +105,9 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
     @Override
     public void onTaskAdded() {
         getRouter().popController(this);
+        if(getActivity() != null) {
+            getActivity().finish();
+        }
     }
+
 }
