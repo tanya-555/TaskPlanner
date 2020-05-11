@@ -13,7 +13,7 @@ public class TaskModel {
     @ColumnInfo(name = "name")
     public String taskName;
 
-    @ColumnInfo(name = "priority:")
+    @ColumnInfo(name = "priority")
     public boolean priority;
 
     @ColumnInfo(name="date")

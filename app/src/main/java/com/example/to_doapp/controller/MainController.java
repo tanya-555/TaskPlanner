@@ -63,8 +63,6 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         .subscribe(new Consumer<Unit>() {
                        @Override
                        public void accept(Unit s)  {
-//                           AddTaskController controller = new AddTaskController();
-//                           getRouter().pushController(RouterTransaction.with(controller));
                            Intent intent = new Intent(getActivity(), CalendarActivity.class);
                            startActivity(intent);
                        }
@@ -75,6 +73,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     public void populateList() {
         adapter = new TaskAdapter(taskModelList,getActivity());
         binding.rvItemlist.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.rvItemlist.setNestedScrollingEnabled(false);
         binding.rvItemlist.setAdapter(adapter);
     }
 
