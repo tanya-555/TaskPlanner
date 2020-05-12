@@ -17,5 +17,7 @@ public interface AppContract {
 
     abstract class Presenter implements MvpPresenter<View> {
         public abstract void loadData(Context context);
+
+        public abstract void deleteTask(String taskName);
     }
 }

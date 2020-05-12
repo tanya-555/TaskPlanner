@@ -37,9 +37,17 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="35dp"
         app:srcCompat="@drawable/star"
         android:visibility="@{MODEL.priority == true ? View.VISIBLE : View.GONE}"/>
+
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        app:srcCompat="@drawable/bin" />
 
     <TextView
         android:id="@+id/task_date"

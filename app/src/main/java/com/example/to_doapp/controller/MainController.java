@@ -15,15 +15,20 @@ import com.example.to_doapp.CalendarActivity;
 import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
+import com.example.to_doapp.event.DeleteTaskEvent;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AppPresenter;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
 import com.example.to_doapp.R;
 import com.jakewharton.rxbinding3.view.RxView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -43,6 +48,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         compositeDisposable = new CompositeDisposable();
         taskModelList = new ArrayList<>();
         initListener();
+        registerEventBus();
         return binding.getRoot();
     }
 
@@ -94,4 +100,30 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
 
         return super.getPresenter();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterEventBus();
+    }
+
+    private void registerEventBus() {
+        if(!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    private void unregisterEventBus() {
+        if(EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+    }
+
+    @Subscribe
+    public void handleDeleteTask(DeleteTaskEvent deleteTaskEvent) {
+        getPresenter().deleteTask(deleteTaskEvent.taskModel.taskName);
+        taskModelList.remove(deleteTaskEvent.taskModel);
+        adapter.notifyDataSetChanged();
+    }
+
 }

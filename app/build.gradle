@@ -56,6 +56,7 @@ dependencies {
     //for RxView
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
 
-
+    //for EventBus
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
 }

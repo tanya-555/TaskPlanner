@@ -2,6 +2,7 @@ package com.example.to_doapp.presenter;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.db.TaskDatabase;
@@ -18,6 +19,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
     public AppContract.View view;
     private Context context;
     private List<TaskModel> taskModelList;
+    private String deletedTaskName;
 
 
     @Override
@@ -27,6 +29,14 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         FetchTasks fetchTasks = new FetchTasks();
         fetchTasks.execute();
     }
+
+    @Override
+    public void deleteTask(String taskName) {
+        deletedTaskName = taskName;
+        DeleteTasks deleteTasks = new DeleteTasks();
+        deleteTasks.execute();
+    }
+
 
     @Override
     public void attachView(@NotNull AppContract.View view) {
@@ -62,6 +72,21 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
             if(view != null) {
                 view.showData(taskModelList);
             }
+        }
+    }
+
+    class DeleteTasks extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            TaskDatabase.getInstance(context).taskOperationsDao().delete(deletedTaskName);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(context, "Task deleted successfully!",Toast.LENGTH_LONG).show();
         }
     }
 }
