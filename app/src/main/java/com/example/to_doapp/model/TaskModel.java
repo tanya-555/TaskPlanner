@@ -16,10 +16,10 @@ public class TaskModel {
     @ColumnInfo(name = "priority")
     public boolean priority;
 
-    @ColumnInfo(name="date")
+    @ColumnInfo(name = "date")
     public String date;
 
-    @ColumnInfo(name="status")
+    @ColumnInfo(name = "status")
     public String status;
 
     public void setTaskId(int taskId) {

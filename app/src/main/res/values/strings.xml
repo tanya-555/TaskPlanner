@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">To-Do App</string>
+    <string name="to_do_app">TO-DO APP</string>
+    <string name="click_to_continue">Click to continue</string>
+    <string name="create_task">CREATE TASK</string>
+    <string name="enter_task">ENTER TASK</string>
+    <string name="high_priority">High Priority</string>
+    <string name="low_priority">Low Priority</string>
+    <string name="add">ADD</string>
+    <string name="your_tasks">YOUR TASKS</string>
 </resources>

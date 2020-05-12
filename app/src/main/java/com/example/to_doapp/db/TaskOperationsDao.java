@@ -8,7 +8,6 @@ import com.example.to_doapp.model.TaskModel;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao

@@ -18,9 +18,7 @@ import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.viewholder.TaskViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
-
 import java.util.List;
-
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     private List<TaskModel> taskList;
@@ -44,7 +42,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         TaskModel task = taskList.get(position);
         holder.bindData(task);
         //check status
-        if("completed".equals(taskList.get(position).getStatus())) {
+        if ("completed".equals(taskList.get(position).getStatus())) {
             binding.doneStatus.setVisibility(View.VISIBLE);
         } else {
             binding.doneStatus.setVisibility(View.GONE);
@@ -53,7 +51,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
                 EventBus.getDefault().post(new DeleteTaskEvent(task)));
 
         //If task is pending then add listener for updating the status to completed
-        if("pending".equals(taskList.get(position).getStatus())) {
+        if ("pending".equals(taskList.get(position).getStatus())) {
             holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -69,20 +67,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         alertDialog.setMessage("Do you want to update this task as completed?");
         alertDialog.setCancelable(false);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        EventBus.getDefault().post(new UpdateStatusEvent(task, position));
-                        alertDialog.dismiss();
-                    }
+                (dialog, which) -> {
+                    EventBus.getDefault().post(new UpdateStatusEvent(task, position));
+                    alertDialog.dismiss();
                 });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        alertDialog.dismiss();
-                    }
-                });
+                (dialog, which) -> alertDialog.dismiss());
         alertDialog.show();
     }
 

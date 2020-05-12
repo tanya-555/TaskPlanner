@@ -12,9 +12,9 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_width="409dp"
+        android:layout_width="@dimen/size_409dp"
         android:layout_height="wrap_content"
-        android:background="#000000"
+        android:background="@color/color_black"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,11 +26,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CREATE TASK"
-            android:layout_marginLeft="40dp"
-            android:textSize="20dp"
+            android:text="@string/create_task"
+            android:layout_marginLeft="@dimen/size_40dp"
+            android:textSize="@dimen/size_20dp"
             android:textStyle="bold"
-            android:textColor="#ffffff" />
+            android:textColor="@color/color_white" />
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -40,16 +40,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="30-04-2020"
-        android:textSize="15dp"
-        android:textColor="#ffffff"
+        android:textSize="@dimen/size_15dp"
+        android:textColor="@color/color_white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="@dimen/size_10dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="@dimen/size_400dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -59,13 +59,13 @@
             android:id="@+id/task_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="ENTER TASK"
+            android:hint="@string/enter_task"
             android:inputType="text"
             android:imeOptions="actionDone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="@dimen/size_50dp" />
 
         <RadioGroup
             android:id="@+id/group"
@@ -74,34 +74,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/task_name"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="@dimen/size_50dp">
 
             <RadioButton
                 android:id="@+id/high"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="High Priority" />
+                android:text="@string/high_priority" />
 
             <RadioButton
                 android:id="@+id/low"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
-                android:text="Low Priority" />
-
+                android:text="@string/low_priority" />
 
         </RadioGroup>
 
         <Button
             android:id="@+id/addnow"
-            android:layout_width="120dp"
+            android:layout_width="@dimen/size_120dp"
             android:layout_height="wrap_content"
-            android:text="ADD"
-            android:background="#000000"
+            android:text="@string/add"
+            android:background="@color/color_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/group"
-            android:layout_marginTop="50dp" />
+            android:layout_marginTop="@dimen/size_50dp" />
 
 
 

@@ -1,13 +1,9 @@
 package com.example.to_doapp.controller;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -15,23 +11,14 @@ import androidx.databinding.DataBindingUtil;
 import com.example.to_doapp.R;
 import com.example.to_doapp.contract.AddTaskContract;
 import com.example.to_doapp.databinding.AddTaskControllerBinding;
-import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AddTaskPresenter;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
-import com.jakewharton.rxbinding3.view.RxView;
 
-import java.util.logging.Logger;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import kotlin.Unit;
 
-import static android.content.ContentValues.TAG;
-
-public class AddTaskController extends MvpController<AddTaskContract.View, AddTaskPresenter> implements AddTaskContract.View {
+public class AddTaskController extends MvpController<AddTaskContract.View, AddTaskPresenter>
+        implements AddTaskContract.View {
 
 
     AddTaskControllerBinding binding;
@@ -48,7 +35,7 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.add_task_controller,container,  false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.add_task_controller, container, false);
         disposable = new CompositeDisposable();
         date = bundle.getString("DATE");
         binding.dateTv.setText(date);
@@ -63,21 +50,16 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
 
     private void setListener() {
 
-        binding.addnow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addTask();
-            }
-        });
+        binding.addnow.setOnClickListener(v -> addTask());
     }
 
     private void addTask() {
-        if(("").equals(binding.taskName.getText().toString())) {
+        if (("").equals(binding.taskName.getText().toString())) {
             binding.taskName.setError("Task name required!!!");
             binding.taskName.requestFocus();
             return;
         }
-        if(binding.taskName.getText().toString().length() > 30) {
+        if (binding.taskName.getText().toString().length() > 30) {
             binding.taskName.setError("Character limit exceeded");
             binding.taskName.requestFocus();
             return;
@@ -87,7 +69,7 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
         task.setTaskName(taskName);
         task.setStatus("pending");
         //logic for priority radio button
-        if(binding.high.isChecked()) {
+        if (binding.high.isChecked()) {
             task.setPriority(true);
         } else {
             task.setPriority(false);
@@ -111,7 +93,7 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
     @Override
     public void onTaskAdded() {
         getRouter().popController(this);
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             getActivity().finish();
         }
     }

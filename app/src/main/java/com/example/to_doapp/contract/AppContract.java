@@ -3,7 +3,6 @@ package com.example.to_doapp.contract;
 import android.content.Context;
 
 import com.example.to_doapp.model.TaskModel;
-import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 
@@ -20,6 +19,6 @@ public interface AppContract {
 
         public abstract void deleteTask(String taskName);
 
-        public abstract  void updateStatus(TaskModel taskModel);
+        public abstract void updateStatus(TaskModel taskModel);
     }
 }

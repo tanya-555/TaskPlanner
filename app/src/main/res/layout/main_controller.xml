@@ -3,57 +3,56 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background2">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="#000000"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="YOUR TASKS"
-            android:layout_marginLeft="40dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="#ffffff" />
-
-
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_below="@+id/toolbar"
         android:layout_height="match_parent"
-        android:layout_marginTop="8dp">
+        android:background="@drawable/background2">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_itemlist"
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="@dimen/size_409dp"
             android:layout_height="wrap_content"
+            android:background="@color/color_black"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/size_40dp"
+                android:text="@string/your_tasks"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/size_20dp"
+                android:textStyle="bold" />
+
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/toolbar"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="@dimen/size_8dp">
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_itemlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toolbar"
+                android:layout_marginTop="@dimen/size_8dp" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_item"
-        android:layout_width="103dp"
-        android:layout_height="80dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/add"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:focusable="true" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_item"
+            android:layout_width="@dimen/size_103dp"
+            android:layout_height="@dimen/size_80dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:clickable="true"
+            android:focusable="true"
+            app:srcCompat="@drawable/add" />
+
+    </RelativeLayout>
 </layout>

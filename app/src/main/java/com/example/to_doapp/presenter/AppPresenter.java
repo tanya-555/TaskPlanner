@@ -77,7 +77,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(view != null) {
+            if (view != null) {
                 view.showData(taskModelList);
             }
         }
@@ -94,7 +94,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Task deleted successfully!",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Task deleted successfully!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -109,7 +109,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Task updated successfully! Swipe to Refresh",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Task updated successfully! Swipe to Refresh", Toast.LENGTH_LONG).show();
         }
     }
 }

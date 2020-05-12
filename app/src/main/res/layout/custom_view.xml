@@ -4,80 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="MODEL"
             type="com.example.to_doapp.model.TaskModel" />
     </data>
 
 
-<RelativeLayout
-    android:id="@+id/constraintLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="10dp"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/task_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="8dp"
-        app:layout_constrainedWidth="true"
-        android:textColor="#ffffff"
-        tools:text="Do Something"
-        android:textSize="20dp"
-        android:text="@{MODEL.taskName}"
-        />
-
-    <ImageView
-        android:id="@+id/priority"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="35dp"
-        app:srcCompat="@drawable/star"
-        android:visibility="@{MODEL.priority == true ? View.VISIBLE : View.GONE}"/>
-
-    <ImageView
-        android:id="@+id/delete"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        app:srcCompat="@drawable/bin" />
-
-    <ImageView
-        android:id="@+id/done_status"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/delete"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
-        android:visibility="gone"
-        app:srcCompat="@drawable/tick" />
-
-    <TextView
-        android:id="@+id/task_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        tools:text="30-04-2020"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/task_name"
-        android:layout_marginStart="8dp"
-        android:paddingBottom="8dp"
-        android:text="@{MODEL.date}"/>
-
-    <View
+    <RelativeLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ffffff"
-        android:layout_alignBottom="@+id/task_date"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/size_10dp">
 
+        <TextView
+            android:id="@+id/task_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="@dimen/size_8dp"
+            android:text="@{MODEL.taskName}"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/size_20dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Do Something" />
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/priority"
+            android:layout_width="@dimen/size_20dp"
+            android:layout_height="@dimen/size_20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/size_35dp"
+            android:visibility="@{MODEL.priority == true ? View.VISIBLE : View.GONE}"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="@dimen/size_20dp"
+            android:layout_height="@dimen/size_20dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/size_8dp"
+            app:srcCompat="@drawable/bin" />
+
+        <ImageView
+            android:id="@+id/done_status"
+            android:layout_width="@dimen/size_20dp"
+            android:layout_height="@dimen/size_20dp"
+            android:layout_below="@+id/delete"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/size_4dp"
+            android:layout_marginEnd="@dimen/size_8dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/tick" />
+
+        <TextView
+            android:id="@+id/task_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/task_name"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:paddingBottom="8dp"
+            android:text="@{MODEL.date}"
+            android:textColor="@color/color_white"
+            tools:text="30-04-2020" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"
+            android:layout_alignBottom="@+id/task_date"
+            android:background="@color/color_white" />
+
+    </RelativeLayout>
 </layout>

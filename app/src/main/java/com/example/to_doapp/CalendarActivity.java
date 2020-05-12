@@ -1,19 +1,11 @@
 package com.example.to_doapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.CalendarView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bluelinelabs.conductor.Conductor;
-import com.bluelinelabs.conductor.Router;
-import com.bluelinelabs.conductor.RouterTransaction;
-import com.example.to_doapp.controller.AddTaskController;
 
 public class CalendarActivity extends AppCompatActivity {
 
@@ -29,13 +21,9 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     private void setListener() {
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @SuppressLint("DefaultLocale")
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                selectedDate = String.format("%d - %d - %d", dayOfMonth, month, year);
-                launchActivity();
-            }
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            selectedDate = String.format("%d - %d - %d", dayOfMonth, month, year);
+            launchActivity();
         });
     }
 

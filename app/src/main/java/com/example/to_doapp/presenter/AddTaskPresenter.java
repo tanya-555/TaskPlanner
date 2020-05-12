@@ -8,7 +8,6 @@ import com.example.to_doapp.contract.AddTaskContract;
 import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter;
-import com.hannesdorfmann.mosby3.mvp.MvpView;
 
 import org.jetbrains.annotations.NotNull;
 

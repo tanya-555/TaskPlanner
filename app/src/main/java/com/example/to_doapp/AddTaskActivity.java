@@ -9,7 +9,6 @@ import com.bluelinelabs.conductor.Conductor;
 import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.to_doapp.controller.AddTaskController;
-import com.example.to_doapp.controller.MainController;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -27,14 +26,14 @@ public class AddTaskActivity extends AppCompatActivity {
         String selectedDate = getIntent().getStringExtra("SELECTED_DATE");
         Bundle bundle = new Bundle();
         bundle.putString("DATE", selectedDate);
-        if(!router.hasRootController()) {
+        if (!router.hasRootController()) {
             router.setRoot(RouterTransaction.with(new AddTaskController(bundle)));
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(!router.handleBack()) {
+        if (!router.handleBack()) {
             super.onBackPressed();
         }
     }

@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.to_doapp.CalendarActivity;
+import com.example.to_doapp.R;
 import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
@@ -21,7 +19,6 @@ import com.example.to_doapp.event.UpdateStatusEvent;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AppPresenter;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
-import com.example.to_doapp.R;
 import com.jakewharton.rxbinding3.view.RxView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,8 +30,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
-import kotlin.Unit;
 
 public class MainController extends MvpController<AppContract.View, AppPresenter> implements AppContract.View {
 
@@ -46,7 +41,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_controller,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.main_controller, container, false);
         compositeDisposable = new CompositeDisposable();
         taskModelList = new ArrayList<>();
         initListener();
@@ -67,20 +62,17 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
 
     private void initListener() {
         compositeDisposable.add(RxView.clicks(binding.addItem)
-        .throttleFirst(1, TimeUnit.SECONDS).delay(1,TimeUnit.SECONDS)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<Unit>() {
-                       @Override
-                       public void accept(Unit s)  {
-                           Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                           startActivity(intent);
-                       }
-                   }
+                .throttleFirst(1, TimeUnit.SECONDS).delay(1, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                    startActivity(intent);
+                }
                 ));
     }
 
     public void populateList() {
-        adapter = new TaskAdapter(taskModelList,getActivity());
+        adapter = new TaskAdapter(taskModelList, getActivity());
         binding.rvItemlist.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.rvItemlist.setNestedScrollingEnabled(false);
         binding.rvItemlist.setAdapter(adapter);
@@ -111,13 +103,13 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     }
 
     private void registerEventBus() {
-        if(!EventBus.getDefault().isRegistered(this)) {
+        if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
     }
 
     private void unregisterEventBus() {
-        if(EventBus.getDefault().isRegistered(this)) {
+        if (EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().unregister(this);
         }
     }
@@ -137,12 +129,9 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     }
 
     private void initSwipeRefreshListener() {
-        binding.swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchData();
-                binding.swiperefresh.setRefreshing(false);
-            }
+        binding.swiperefresh.setOnRefreshListener(() -> {
+            fetchData();
+            binding.swiperefresh.setRefreshing(false);
         });
     }
 
