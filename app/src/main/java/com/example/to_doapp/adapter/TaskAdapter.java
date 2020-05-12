@@ -1,11 +1,13 @@
 package com.example.to_doapp.adapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.to_doapp.R;
 import com.example.to_doapp.databinding.CustomViewBinding;
 import com.example.to_doapp.event.DeleteTaskEvent;
 import com.example.to_doapp.model.TaskModel;
@@ -28,20 +30,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     @Override
     public TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         binding = CustomViewBinding.inflate(LayoutInflater.from(parent.getContext()));
-        TaskViewHolder taskViewHolder = new TaskViewHolder(binding);
-        return taskViewHolder;
+        return new TaskViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         TaskModel task = taskList.get(position);
         holder.bindData(task);
-        binding.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EventBus.getDefault().post(new DeleteTaskEvent(taskList.get(position)));
-            }
-        });
+        holder.itemView.findViewById(R.id.delete).setOnClickListener(v ->
+                EventBus.getDefault().post(new DeleteTaskEvent(task)));
     }
 
     @Override
