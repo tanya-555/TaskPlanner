@@ -77,9 +77,15 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
             binding.taskName.requestFocus();
             return;
         }
+        if(binding.taskName.getText().toString().length() > 30) {
+            binding.taskName.setError("Character limit exceeded");
+            binding.taskName.requestFocus();
+            return;
+        }
         taskName = binding.taskName.getText().toString();
         TaskModel task = new TaskModel();
         task.setTaskName(taskName);
+        task.setStatus("pending");
         //logic for priority radio button
         if(binding.high.isChecked()) {
             task.setPriority(true);

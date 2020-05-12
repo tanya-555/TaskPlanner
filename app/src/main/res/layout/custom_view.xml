@@ -49,6 +49,17 @@
         android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/bin" />
 
+    <ImageView
+        android:id="@+id/done_status"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/delete"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/tick" />
+
     <TextView
         android:id="@+id/task_date"
         android:layout_width="wrap_content"

@@ -19,6 +19,9 @@ public class TaskModel {
     @ColumnInfo(name="date")
     public String date;
 
+    @ColumnInfo(name="status")
+    public String status;
+
     public void setTaskId(int taskId) {
         this.taskId = taskId;
     }
@@ -49,5 +52,13 @@ public class TaskModel {
 
     public String getDate() {
         return date;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
     }
 }

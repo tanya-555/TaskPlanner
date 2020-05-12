@@ -20,6 +20,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
     private Context context;
     private List<TaskModel> taskModelList;
     private String deletedTaskName;
+    private String updateTaskName;
 
 
     @Override
@@ -35,6 +36,13 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         deletedTaskName = taskName;
         DeleteTasks deleteTasks = new DeleteTasks();
         deleteTasks.execute();
+    }
+
+    @Override
+    public void updateStatus(TaskModel taskModel) {
+        updateTaskName = taskModel.taskName;
+        UpdateTasks updateTasks = new UpdateTasks();
+        updateTasks.execute();
     }
 
 
@@ -87,6 +95,21 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             Toast.makeText(context, "Task deleted successfully!",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    class UpdateTasks extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            TaskDatabase.getInstance(context).taskOperationsDao().updateStatus(updateTaskName, "completed");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Toast.makeText(context, "Task updated successfully!",Toast.LENGTH_LONG).show();
         }
     }
 }

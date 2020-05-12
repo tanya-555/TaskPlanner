@@ -16,6 +16,7 @@ import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
 import com.example.to_doapp.event.DeleteTaskEvent;
+import com.example.to_doapp.event.UpdateStatusEvent;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AppPresenter;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
@@ -124,6 +125,13 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         getPresenter().deleteTask(deleteTaskEvent.taskModel.taskName);
         taskModelList.remove(deleteTaskEvent.taskModel);
         adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe
+    public void handleUpdateStatus(UpdateStatusEvent updateStatusEvent) {
+        getPresenter().updateStatus(updateStatusEvent.taskModel);
+        taskModelList.set(updateStatusEvent.position, updateStatusEvent.taskModel);
+        adapter.notifyItemChanged(updateStatusEvent.position);
     }
 
 }

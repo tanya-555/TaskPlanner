@@ -19,5 +19,7 @@ public interface AppContract {
         public abstract void loadData(Context context);
 
         public abstract void deleteTask(String taskName);
+
+        public abstract  void updateStatus(TaskModel taskModel);
     }
 }

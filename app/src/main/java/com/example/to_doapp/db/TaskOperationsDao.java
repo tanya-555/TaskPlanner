@@ -33,6 +33,9 @@ public interface TaskOperationsDao {
     //Select from database
     @Query("SELECT * FROM task")
     List<TaskModel> getTask();
+
+    @Query("UPDATE task set status = :status where name= :name")
+    void updateStatus(String name, String status);
 }
 
 
