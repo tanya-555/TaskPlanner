@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.example.to_doapp.CalendarActivity;
@@ -49,6 +50,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         compositeDisposable = new CompositeDisposable();
         taskModelList = new ArrayList<>();
         initListener();
+        initSwipeRefreshListener();
         registerEventBus();
         return binding.getRoot();
     }
@@ -132,6 +134,16 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         getPresenter().updateStatus(updateStatusEvent.taskModel);
         taskModelList.set(updateStatusEvent.position, updateStatusEvent.taskModel);
         adapter.notifyItemChanged(updateStatusEvent.position);
+    }
+
+    private void initSwipeRefreshListener() {
+        binding.swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchData();
+                binding.swiperefresh.setRefreshing(false);
+            }
+        });
     }
 
 }

@@ -109,7 +109,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Task updated successfully!",Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Task updated successfully! Swipe to Refresh",Toast.LENGTH_LONG).show();
         }
     }
 }
