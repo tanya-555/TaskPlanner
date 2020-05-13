@@ -1,8 +1,6 @@
 package com.example.to_doapp.presenter;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.example.to_doapp.contract.AddTaskContract;
 import com.example.to_doapp.db.TaskDatabase;
@@ -14,8 +12,8 @@ import org.jetbrains.annotations.NotNull;
 public class AddTaskPresenter extends AddTaskContract.Presenter implements MvpPresenter<AddTaskContract.View> {
 
     public AddTaskContract.View view;
-    private Context context;
     private TaskModel taskModel;
+    private TaskDatabase taskDatabase;
 
     @Override
     public void attachView(@NotNull AddTaskContract.View view) {
@@ -24,12 +22,12 @@ public class AddTaskPresenter extends AddTaskContract.Presenter implements MvpPr
 
     @Override
     public void detachView(boolean retainInstance) {
-
+        this.view = null;
     }
 
     @Override
     public void detachView() {
-
+        this.view = null;
     }
 
     @Override
@@ -38,11 +36,15 @@ public class AddTaskPresenter extends AddTaskContract.Presenter implements MvpPr
     }
 
     @Override
-    public void loadData(Context context, TaskModel taskModel) {
-        this.context = context;
-        this.taskModel = taskModel;
+    public void addData(TaskDatabase taskDatabase) {
+        this.taskDatabase = taskDatabase;
         AddTask addTask = new AddTask();
         addTask.execute();
+    }
+
+    @Override
+    public void setTaskModel(TaskModel taskModel) {
+        this.taskModel = taskModel;
     }
 
     class AddTask extends AsyncTask<Void, Void, Void> {
@@ -51,14 +53,13 @@ public class AddTaskPresenter extends AddTaskContract.Presenter implements MvpPr
         protected Void doInBackground(Void... voids) {
 
             //adding to database
-            TaskDatabase.getInstance(context).taskOperationsDao().insertNewTask(taskModel);
+            taskDatabase.taskOperationsDao().insertNewTask(taskModel);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Added Task", Toast.LENGTH_LONG).show();
             view.onTaskAdded();
         }
     }

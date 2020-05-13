@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -14,6 +15,7 @@ import com.example.to_doapp.R;
 import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
+import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.event.DeleteTaskEvent;
 import com.example.to_doapp.event.UpdateStatusEvent;
 import com.example.to_doapp.model.TaskModel;
@@ -57,7 +59,8 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     }
 
     private void fetchData() {
-        getPresenter().loadData(getActivity());
+        getPresenter().setTaskModelList(taskModelList);
+        getPresenter().loadData(TaskDatabase.getInstance(getActivity()));
     }
 
     private void initListener() {
@@ -117,6 +120,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @Subscribe
     public void handleDeleteTask(DeleteTaskEvent deleteTaskEvent) {
         getPresenter().deleteTask(deleteTaskEvent.taskModel.taskName);
+        Toast.makeText(getActivity(), "Task deleted successfully!", Toast.LENGTH_LONG).show();
         taskModelList.remove(deleteTaskEvent.taskModel);
         adapter.notifyDataSetChanged();
     }
@@ -124,6 +128,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @Subscribe
     public void handleUpdateStatus(UpdateStatusEvent updateStatusEvent) {
         getPresenter().updateStatus(updateStatusEvent.taskModel);
+        Toast.makeText(getActivity(), "Task updated successfully! Swipe to Refresh", Toast.LENGTH_LONG).show();
         taskModelList.set(updateStatusEvent.position, updateStatusEvent.taskModel);
         adapter.notifyItemChanged(updateStatusEvent.position);
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -11,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.to_doapp.R;
 import com.example.to_doapp.contract.AddTaskContract;
 import com.example.to_doapp.databinding.AddTaskControllerBinding;
+import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AddTaskPresenter;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
@@ -68,6 +70,7 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
         TaskModel task = new TaskModel();
         task.setTaskName(taskName);
         task.setStatus("pending");
+
         //logic for priority radio button
         if (binding.high.isChecked()) {
             task.setPriority(true);
@@ -75,7 +78,8 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
             task.setPriority(false);
         }
         task.setDate(date);
-        getPresenter().loadData(getApplicationContext(), task);
+        getPresenter().setTaskModel(task);
+        getPresenter().addData(TaskDatabase.getInstance(getActivity()));
     }
 
     @NonNull
@@ -92,6 +96,7 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
 
     @Override
     public void onTaskAdded() {
+        Toast.makeText(getActivity(), "Added Task", Toast.LENGTH_LONG).show();
         getRouter().popController(this);
         if (getActivity() != null) {
             getActivity().finish();

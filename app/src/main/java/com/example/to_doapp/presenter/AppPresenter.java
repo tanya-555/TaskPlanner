@@ -1,9 +1,6 @@
 package com.example.to_doapp.presenter;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
-
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
@@ -17,16 +14,15 @@ import java.util.List;
 public class AppPresenter extends AppContract.Presenter implements MvpPresenter<AppContract.View> {
 
     public AppContract.View view;
-    private Context context;
-    private List<TaskModel> taskModelList;
+    private List<TaskModel> taskModelList = new ArrayList<>();
     private String deletedTaskName;
     private String updateTaskName;
+    private TaskDatabase taskDatabase;
 
 
     @Override
-    public void loadData(Context context) {
-        this.context = context;
-        taskModelList = new ArrayList<>();
+    public void loadData(TaskDatabase taskDatabase) {
+        this.taskDatabase = taskDatabase;
         FetchTasks fetchTasks = new FetchTasks();
         fetchTasks.execute();
     }
@@ -45,6 +41,11 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
         updateTasks.execute();
     }
 
+    @Override
+    public void setTaskModelList(List<TaskModel> taskModelList) {
+        this.taskModelList = taskModelList;
+    }
+
 
     @Override
     public void attachView(@NotNull AppContract.View view) {
@@ -53,12 +54,12 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
 
     @Override
     public void detachView(boolean retainInstance) {
-
+        this.view = null;
     }
 
     @Override
     public void detachView() {
-
+        this.view = null;
     }
 
     @Override
@@ -70,7 +71,7 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
 
         @Override
         protected Void doInBackground(Void... voids) {
-            taskModelList = TaskDatabase.getInstance(context).taskOperationsDao().getTask();
+            taskModelList = taskDatabase.taskOperationsDao().getTask();
             return null;
         }
 
@@ -87,14 +88,13 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
 
         @Override
         protected Void doInBackground(Void... voids) {
-            TaskDatabase.getInstance(context).taskOperationsDao().delete(deletedTaskName);
+            taskDatabase.taskOperationsDao().delete(deletedTaskName);
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Task deleted successfully!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -102,14 +102,13 @@ public class AppPresenter extends AppContract.Presenter implements MvpPresenter<
 
         @Override
         protected Void doInBackground(Void... voids) {
-            TaskDatabase.getInstance(context).taskOperationsDao().updateStatus(updateTaskName, "completed");
+            taskDatabase.taskOperationsDao().updateStatus(updateTaskName, "completed");
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            Toast.makeText(context, "Task updated successfully! Swipe to Refresh", Toast.LENGTH_LONG).show();
         }
     }
 }
