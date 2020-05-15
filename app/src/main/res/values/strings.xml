@@ -8,4 +8,5 @@
     <string name="low_priority">Low Priority</string>
     <string name="add">ADD</string>
     <string name="your_tasks">YOUR TASKS</string>
+    <string name="no_task_added_yet">No task added yet!</string>
 </resources>

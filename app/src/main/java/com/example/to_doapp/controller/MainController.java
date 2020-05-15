@@ -84,6 +84,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @Override
     public void showData(List<TaskModel> taskList) {
         taskModelList = taskList;
+        checkForEmptyList();
         populateList();
     }
 
@@ -123,6 +124,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         Toast.makeText(getActivity(), "Task deleted successfully!", Toast.LENGTH_LONG).show();
         taskModelList.remove(deleteTaskEvent.taskModel);
         adapter.notifyDataSetChanged();
+        checkForEmptyList();
     }
 
     @Subscribe
@@ -138,6 +140,16 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
             fetchData();
             binding.swiperefresh.setRefreshing(false);
         });
+    }
+
+    private void checkForEmptyList() {
+        if(taskModelList.size() == 0) {
+            binding.swiperefresh.setVisibility(View.GONE);
+            binding.errorView.setVisibility(View.VISIBLE);
+        } else {
+            binding.swiperefresh.setVisibility(View.VISIBLE);
+            binding.errorView.setVisibility(View.GONE);
+        }
     }
 
 }
