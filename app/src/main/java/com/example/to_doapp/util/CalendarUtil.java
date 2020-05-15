@@ -1,9 +1,11 @@
 package com.example.to_doapp.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class CalendarUtil {
 
@@ -22,6 +24,20 @@ public class CalendarUtil {
             e.printStackTrace();
         }
         return date.getTime();
+    }
+
+    public static String convertDateFormat(String currentDate, String targetFormat, String currentFormat) {
+        String targetFormatDate;
+        DateFormat originalFormatter = new SimpleDateFormat(currentFormat, Locale.ENGLISH);
+        DateFormat targetFormatter = new SimpleDateFormat(targetFormat);
+        try {
+            Date date = originalFormatter.parse(currentDate);
+            targetFormatDate = targetFormatter.format(date);
+            return targetFormatDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

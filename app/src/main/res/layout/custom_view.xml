@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.example.to_doapp.util.CalendarUtil" />
+
         <variable
             name="MODEL"
             type="com.example.to_doapp.model.TaskModel" />
@@ -69,7 +71,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginStart="8dp"
             android:paddingBottom="8dp"
-            android:text="@{MODEL.date}"
+            android:text='@{CalendarUtil.convertDateFormat(MODEL.date,"dd - MMM - yyyy", "dd - MM - yyyy")}'
             android:textColor="@color/color_white"
             tools:text="30-04-2020" />
 
