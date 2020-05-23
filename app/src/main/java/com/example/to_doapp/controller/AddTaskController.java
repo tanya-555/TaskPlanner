@@ -15,16 +15,14 @@ import com.example.to_doapp.databinding.AddTaskControllerBinding;
 import com.example.to_doapp.db.TaskDatabase;
 import com.example.to_doapp.model.TaskModel;
 import com.example.to_doapp.presenter.AddTaskPresenter;
+import com.example.to_doapp.util.CalendarUtil;
 import com.hannesdorfmann.mosby3.mvp.conductor.MvpController;
-
-import io.reactivex.disposables.CompositeDisposable;
 
 public class AddTaskController extends MvpController<AddTaskContract.View, AddTaskPresenter>
         implements AddTaskContract.View {
 
 
-    AddTaskControllerBinding binding;
-    CompositeDisposable disposable;
+    private AddTaskControllerBinding binding;
     private String taskName;
     private Bundle bundle;
     private String date;
@@ -38,9 +36,9 @@ public class AddTaskController extends MvpController<AddTaskContract.View, AddTa
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         binding = DataBindingUtil.inflate(inflater, R.layout.add_task_controller, container, false);
-        disposable = new CompositeDisposable();
         date = bundle.getString("DATE");
-        binding.dateTv.setText(date);
+        binding.dateTv.setText(CalendarUtil.convertDateFormat(date,
+                "dd - MMM - yyyy", "dd - MM - yyyy"));
         return binding.getRoot();
     }
 

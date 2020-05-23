@@ -23,24 +23,25 @@ public class CalendarActivity extends AppCompatActivity {
         setContentView(R.layout.calendar_activity);
         calendarView = findViewById(R.id.calendar);
         continueBtn = findViewById(R.id.btn_continue);
-        setListener();
+        selectedDate = CalendarUtil.getToday();
+        setDateChangeListener();
+        setContinueButtonPressListener();
     }
 
-    private void setListener() {
+    private void setDateChangeListener() {
         calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             selectedDate = String.format("%d - %d - %d", dayOfMonth, month+1, year);
-            if(checkDateValidity()) {
-                launchActivityListener();
-            }
         });
     }
 
-    private void launchActivityListener() {
+    private void setContinueButtonPressListener() {
         continueBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
-            intent.putExtra("SELECTED_DATE", selectedDate);
-            startActivity(intent);
-            finish();
+            if(checkDateValidity()) {
+                Intent intent = new Intent(getApplicationContext(), AddTaskActivity.class);
+                intent.putExtra("SELECTED_DATE", selectedDate);
+                startActivity(intent);
+                finish();
+            }
         });
     }
 

@@ -40,4 +40,9 @@ public class CalendarUtil {
         return null;
     }
 
+    public static String getToday() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd - MM - yyyy");
+        return formatter.format(new Date());
+    }
+
 }
