@@ -9,4 +9,5 @@
     <string name="add">ADD</string>
     <string name="your_tasks">YOUR TASKS</string>
     <string name="no_task_added_yet">No task added yet!</string>
+    <string name="pick_a_date">Pick a Date!</string>
 </resources>
