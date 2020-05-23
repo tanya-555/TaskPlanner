@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_task"
-            android:layout_marginLeft="@dimen/size_40dp"
+            android:layout_marginLeft="@dimen/size_20dp"
             android:textSize="@dimen/size_20dp"
             android:textStyle="bold"
             android:textColor="@color/color_white" />

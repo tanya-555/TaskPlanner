@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/size_40dp"
+                android:layout_marginLeft="@dimen/size_20dp"
                 android:text="@string/your_tasks"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/size_20dp"
