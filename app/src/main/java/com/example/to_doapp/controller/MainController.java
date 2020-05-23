@@ -55,6 +55,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     @Override
     protected void onAttach(@NonNull View view) {
         super.onAttach(view);
+        binding.progressBar.setVisibility(View.VISIBLE);
         fetchData();
     }
 
@@ -83,6 +84,7 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
 
     @Override
     public void showData(List<TaskModel> taskList) {
+        binding.progressBar.setVisibility(View.GONE);
         taskModelList = taskList;
         checkForEmptyList();
         populateList();
