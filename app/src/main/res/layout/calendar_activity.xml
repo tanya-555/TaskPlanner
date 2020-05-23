@@ -3,18 +3,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background2">
 
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/size_80dp"
-            android:layout_below="@+id/toolbar"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/background2">
+            android:layout_height="@dimen/size_400dp"
+            android:layout_below="@+id/toolbar">
 
         </CalendarView>
 
+        <Button
+            android:id="@+id/btn_continue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/color_black"
+            android:text="@string/continue_btn"
+            android:layout_below="@+id/calendar"
+            android:layout_centerHorizontal="true" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
