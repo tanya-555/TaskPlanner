@@ -1,6 +1,7 @@
 package com.example.to_doapp.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.to_doapp.adapter.TaskAdapter;
 import com.example.to_doapp.contract.AppContract;
 import com.example.to_doapp.databinding.MainControllerBinding;
 import com.example.to_doapp.db.TaskDatabase;
+import com.example.to_doapp.di.DaggerSharedPrefComponent;
+import com.example.to_doapp.di.SharedPrefModule;
 import com.example.to_doapp.event.DeleteTaskEvent;
 import com.example.to_doapp.event.UpdateStatusEvent;
 import com.example.to_doapp.model.TaskModel;
@@ -30,6 +33,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -40,12 +45,17 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     private TaskAdapter adapter;
     private List<TaskModel> taskModelList;
 
+    @Inject
+    SharedPreferences sharedPreferences;
+
     @NonNull
     @Override
     protected View onCreateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_controller, container, false);
         compositeDisposable = new CompositeDisposable();
         taskModelList = new ArrayList<>();
+        DaggerSharedPrefComponent.builder().sharedPrefModule(new SharedPrefModule(getActivity())).
+                build().inject(this);
         initListener();
         initSwipeRefreshListener();
         registerEventBus();
