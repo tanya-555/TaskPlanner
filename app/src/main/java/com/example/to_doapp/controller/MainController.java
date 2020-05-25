@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
@@ -185,25 +186,28 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     }
 
     private void showInfoDialog() {
-        Dialog dialog = new Dialog(getActivity());
+        Dialog dialog = new Dialog(Objects.requireNonNull(getActivity()));
         dialog.setCancelable(false);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.info_dialog);
         Button okBtn = dialog.findViewById(R.id.ok_btn);
         CheckBox checkBox = dialog.findViewById(R.id.checkbox);
-        setCheckBoxListener(checkBox);
-        okBtn.setOnClickListener(v -> dialog.dismiss());
+        okBtn.setOnClickListener(v -> {
+            setCheckBoxState(checkBox);
+            dialog.dismiss();
+        });
         dialog.show();
     }
 
-    private void setCheckBoxListener(CheckBox checkBox) {
-        checkBox.setOnClickListener(v -> {
-            if (checkBox.isChecked()) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("SHOW_INFO_DIALOG", "no");
-                editor.apply();
-            }
-        });
+    private void setCheckBoxState(CheckBox checkBox) {
+        if (checkBox.isChecked()) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("SHOW_INFO_DIALOG", "no");
+            editor.apply();
+        } else {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("SHOW_INFO_DIALOG", "yes");
+            editor.apply();
+        }
     }
-
 }
