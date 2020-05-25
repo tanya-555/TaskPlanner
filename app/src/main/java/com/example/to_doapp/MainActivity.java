@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
         clickTextView = findViewById(R.id.click_tv);
         progressBar.setVisibility(View.VISIBLE);
         initListener();
-
-
     }
 
     private void initListener() {
