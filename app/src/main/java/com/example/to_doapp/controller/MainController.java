@@ -1,10 +1,14 @@
 package com.example.to_doapp.controller;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,6 +60,8 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
         taskModelList = new ArrayList<>();
         DaggerSharedPrefComponent.builder().sharedPrefModule(new SharedPrefModule(getActivity())).
                 build().inject(this);
+        initSharedPreferences();
+        handleInfoDialog();
         initListener();
         initSwipeRefreshListener();
         registerEventBus();
@@ -79,9 +85,9 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
                 .throttleFirst(1, TimeUnit.SECONDS).delay(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    Intent intent = new Intent(getActivity(), CalendarActivity.class);
-                    startActivity(intent);
-                }
+                            Intent intent = new Intent(getActivity(), CalendarActivity.class);
+                            startActivity(intent);
+                        }
                 ));
     }
 
@@ -155,13 +161,49 @@ public class MainController extends MvpController<AppContract.View, AppPresenter
     }
 
     private void checkForEmptyList() {
-        if(taskModelList.size() == 0) {
+        if (taskModelList.size() == 0) {
             binding.swiperefresh.setVisibility(View.GONE);
             binding.errorView.setVisibility(View.VISIBLE);
         } else {
             binding.swiperefresh.setVisibility(View.VISIBLE);
             binding.errorView.setVisibility(View.GONE);
         }
+    }
+
+    private void initSharedPreferences() {
+        if (!sharedPreferences.contains("SHOW_INFO_DIALOG")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("SHOW_INFO_DIALOG", "yes");
+            editor.apply();
+        }
+    }
+
+    private void handleInfoDialog() {
+        if ("yes".equals(sharedPreferences.getString("SHOW_INFO_DIALOG", ""))) {
+            showInfoDialog();
+        }
+    }
+
+    private void showInfoDialog() {
+        Dialog dialog = new Dialog(getActivity());
+        dialog.setCancelable(false);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.info_dialog);
+        Button okBtn = dialog.findViewById(R.id.ok_btn);
+        CheckBox checkBox = dialog.findViewById(R.id.checkbox);
+        setCheckBoxListener(checkBox);
+        okBtn.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
+    }
+
+    private void setCheckBoxListener(CheckBox checkBox) {
+        checkBox.setOnClickListener(v -> {
+            if (checkBox.isChecked()) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("SHOW_INFO_DIALOG", "no");
+                editor.apply();
+            }
+        });
     }
 
 }

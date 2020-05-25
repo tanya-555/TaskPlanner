@@ -11,4 +11,7 @@
     <string name="no_task_added_yet">No task added yet!</string>
     <string name="pick_a_date">Pick a Date!</string>
     <string name="continue_btn">CONTINUE</string>
+    <string name="do_not_show_this_message_again">Do not show this message again</string>
+    <string name="long_press_msg">long press on task to mark it as done</string>
+    <string name="ok">OK</string>
 </resources>
